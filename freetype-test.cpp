@@ -4,6 +4,11 @@
 #include <hb.h>
 #include <hb-ft.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include "gl_errors.hpp"
+
 #include <math.h>
 
 #include <iostream>
@@ -15,6 +20,8 @@
 
 // referenced https://github.com/harfbuzz/harfbuzz-tutorial/blob/master/hello-harfbuzz-freetype.c
 // and https://freetype.org/freetype2/docs/tutorial/step1.html#section-6
+// and https://learnopengl.com/In-Practice/Text-Rendering
+
 
 #define WIDTH   240
 #define HEIGHT  240
@@ -183,7 +190,25 @@ int main(int argc, char **argv) {
 		pen.y += pos[n].y_advance;
 	}
 
+	// show bit map in terminal
 	show_image();
+
+	/* Now use OpenGL to render this on screen! */
+	// 8. generate texture
+	unsigned int texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(
+		GL_TEXTURE_2D,
+		0,
+		GL_RED,
+		face->glyph->bitmap.width,
+		face->glyph->bitmap.rows,
+		0,
+		GL_RED,
+		GL_UNSIGNED_BYTE,
+		face->glyph->bitmap.buffer
+	);
 
 	hb_buffer_destroy(buf);
 	hb_font_destroy(font);
