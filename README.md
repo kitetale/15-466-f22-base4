@@ -1,6 +1,6 @@
 # (TODO: your game's title)
 
-Author: (TODO: your name)
+Author: Ashley Kim
 
 Design: (TODO: In two sentences or fewer, describe what is new and interesting about your game.)
 
@@ -16,7 +16,13 @@ How To Play:
 
 (TODO: describe the controls and (if needed) goals/strategy.)
 
-Sources: (TODO: list a source URL for any assets you did not create yourself. Make sure you have a license for the asset.)
+### Sources: ###
+* [Rubik Dirt font](https://fonts.google.com/specimen/Rubik+Dirt/about?preview.text=ABCDEFGabcdefg&preview.text_type=custom)
+
+### References : ###
+* [Harfbuzz](https://github.com/harfbuzz/harfbuzz-tutorial/blob/master/hello-harfbuzz-freetype.c)
+* [FreeType](https://freetype.org/freetype2/docs/tutorial/step1.html#section-6)
+* [OpenGL](https://learnopengl.com/In-Practice/Text-Rendering)
 
 This game was built with [NEST](NEST.md).
 

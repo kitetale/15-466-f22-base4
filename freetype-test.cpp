@@ -9,7 +9,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "gl_errors.hpp"
 
+#include "ColorProgram.hpp"
+
 #include <math.h>
+#include <string.h>
 
 #include <iostream>
 
@@ -28,6 +31,10 @@
 
 /* origin is the upper left corner */
 unsigned char image[HEIGHT][WIDTH];
+
+/* VAO/ VBO for texture quad */
+GLuint VAO, VBO;
+
 
 void draw_bitmap( FT_Bitmap* bitmap, FT_Int x, FT_Int y)
 {
@@ -85,7 +92,7 @@ int main(int argc, char **argv) {
 	// 2. set char size and screen resolution
 	if((error = FT_Set_Char_Size(
           face,             /* handle to face object           */
-          0,     /* char_width in 1/64th of points  */
+          0,                /* char_width in 1/64th of points  */
           FONT_SIZE*64,     /* char_height in 1/64th of points */
           0,                /* horizontal device resolution    */
           0                 /* vertical device resolution      */
@@ -192,23 +199,43 @@ int main(int argc, char **argv) {
 
 	// show bit map in terminal
 	show_image();
+// {
+// 	/* Now use OpenGL to render this on screen! */
+// 	// 8. setup shader
+// 	GLuint shader = color_program->program;
+//     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(WIDTH), 0.0f, static_cast<float>(HEIGHT));
+//     glUseProgram(shader);
+//     glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-	/* Now use OpenGL to render this on screen! */
-	// 8. generate texture
-	unsigned int texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(
-		GL_TEXTURE_2D,
-		0,
-		GL_RED,
-		face->glyph->bitmap.width,
-		face->glyph->bitmap.rows,
-		0,
-		GL_RED,
-		GL_UNSIGNED_BYTE,
-		face->glyph->bitmap.buffer
-	);
+// 	// 9. setup VAO/VBO for texture quad
+// 	glGenVertexArrays(1, &VAO);
+//     glGenBuffers(1, &VBO);
+//     glBindVertexArray(VAO);
+//     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+//     glEnableVertexAttribArray(0);
+//     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+//     glBindBuffer(GL_ARRAY_BUFFER, 0);
+//     glBindVertexArray(0);
+
+// 	// 10. generate texture
+
+// 	unsigned int texture;
+// 	glGenTextures(1, &texture);
+// 	glBindTexture(GL_TEXTURE_2D, texture);
+// 	glTexImage2D(
+// 		GL_TEXTURE_2D,
+// 		0,
+// 		GL_RED,
+// 		face->glyph->bitmap.width,
+// 		face->glyph->bitmap.rows,
+// 		0,
+// 		GL_RED,
+// 		GL_UNSIGNED_BYTE,
+// 		face->glyph->bitmap.buffer
+// 	);
+//}
+
 
 	hb_buffer_destroy(buf);
 	hb_font_destroy(font);

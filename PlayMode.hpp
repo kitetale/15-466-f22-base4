@@ -1,12 +1,30 @@
+// reference https://learnopengl.com/code_viewer_gh.php?code=src/7.in_practice/2.text_rendering/text_rendering.cpp
 #include "Mode.hpp"
 
 #include "Scene.hpp"
 #include "Sound.hpp"
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include "gl_errors.hpp"
+
+#include "ColorProgram.hpp"
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+#include <hb.h>
+#include <hb-ft.h>
 
 #include <vector>
 #include <deque>
+#include <math.h>
+#include <iostream>
+
+#define FONT_SIZE 36
+#define WIDTH   240
+#define HEIGHT  240
 
 struct PlayMode : Mode {
 	PlayMode();
@@ -30,5 +48,11 @@ struct PlayMode : Mode {
 	
 	//camera:
 	Scene::Camera *camera = nullptr;
+
+	/* VAO/ VBO for texture quad */
+	GLuint VAO, VBO;
+
+	// render texts:
+	void RenderText(GLuint shader, std::string text, float x, float y, float scale, glm::vec3 color, FT_Face face);
 
 };
